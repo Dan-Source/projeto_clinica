@@ -19,7 +19,12 @@ class Medico(models.Model):
     telefone = models.CharField(verbose_name="Telefone",
                                 validators=[phone_regex],
                                 max_length=17, null=True, blank=True)
-    especialidade = ForeignKey(Especialidade, on_delete=models.CASCADE, related_name='medicos')
+    especialidade = ForeignKey(Especialidade,
+                               on_delete=models.CASCADE,
+                               related_name='medicos')
+    
+    def __str__(self):
+        return f'{self.nome} - {self.crm}'
 
 def validar_dia(value):
     today = date.today()
@@ -38,3 +43,6 @@ class Agenda(models.Model):
         ("5", "11:00 ás 12:00"),
     )
     horario = models.CharField(max_length=10, choices=HORARIOS)
+    
+    class Meta:
+        unique_together = ('horario', 'dia')
