@@ -7,6 +7,9 @@ from django.db.models.fields.related import ForeignKey
 class Especialidade(models.Model):
     nome = models.CharField(verbose_name="Nome", max_length=200)
     
+    def __str__(self):
+        return f'{self.nome}'
+    
 class Medico(models.Model):
     nome = models.CharField(verbose_name="Nome", max_length=200)
     email = models.EmailField(verbose_name="Email")
@@ -46,3 +49,6 @@ class Agenda(models.Model):
     
     class Meta:
         unique_together = ('horario', 'dia')
+        
+    def __str__(self):
+        return f'{self.dia} - {self.medico}'

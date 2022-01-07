@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Cadastro | {{ block.super }}
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="page-header">
+            <h1>Agendar Consulta</h1>
+        </div>
+        <form class="form-horizontal" method="post">
+            {% csrf_token %}
+            {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+            {% endfor %}
+            <fieldset>
+                <div class="form-group{% if form.medico.errors %} has-error{% endif %}">
+                  <label for="{{ form.medico.auto_id }}" class="col-md-3 control-label">
+                  {{ form.medico.label }}</label>
+                  <div class="col-md-9">
+                    {% render_field form.medico class="form-control" %}
+
+                    {% for error in form.medico.errors %}
+                    <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group{% if form.dia.errors %} has-error{% endif %}">
+                  <label for="{{ form.dia.auto_ud }}" class="col-md-3 control-label">
+                  {{ form.dia.label }}</label>
+                  <div class="col-md-9">
+                    {% render_field form.dia type="date" class="form-control" placeholder="01/01/2022" %}
+                    {% for error in form.dia.errors %}
+                    <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group{% if form.horario.errors %} has-error{% endif %}">
+                  <label for="{{ form.horario.auto_id }}" class="col-md-3 control-label">
+                  {{ form.horario.label }}</label>
+                  <div class="col-md-9">
+                    {% render_field form.horario class="form-control" %}
+
+                    {% for error in form.horario.errors %}
+                    <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                  </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+{% endblock %}
