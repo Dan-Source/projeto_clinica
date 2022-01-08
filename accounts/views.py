@@ -7,7 +7,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from django.views.generic import CreateView, TemplateView, UpdateView, FormView
+from django.views.generic import CreateView, TemplateView, UpdateView, FormView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.auth.views import (
@@ -20,10 +20,13 @@ from .models import User
 from .forms import UserAdminCreationForm
 
 
-class IndexView(LoginRequiredMixin, TemplateView):
-
+class IndexView(LoginRequiredMixin, DetailView):
+    model = User
     template_name = 'accounts/index.html'
     login_url = reverse_lazy('accounts:login')
+    
+    def get_object(self):
+        return self.request.user
 
 
 class Login(LoginView):
