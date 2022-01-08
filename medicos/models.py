@@ -61,4 +61,4 @@ class Agenda(models.Model):
         unique_together = ('horario', 'dia')
         
     def __str__(self):
-        return f'{self.dia} - {self.medico}'
+        return f'{self.dia} - {self.get_horario_display()} - {self.medico}'

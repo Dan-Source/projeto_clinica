@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -51,7 +51,7 @@ class EspecialidadeListView(LoginRequiredMixin, TestMixinIsAdmin, ListView):
         return Especialidade.objects.all().order_by('-pk')
 
 
-class AgendaCreateView(LoginRequiredMixin ,CreateView):
+class AgendaCreateView(LoginRequiredMixin, CreateView):
 
     model = Agenda
     login_url = 'accounts:login'
@@ -62,6 +62,27 @@ class AgendaCreateView(LoginRequiredMixin ,CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+class AgendaUpdateView(LoginRequiredMixin, UpdateView):
+
+    model = Agenda
+    login_url = 'accounts:login'
+    template_name = 'medicos/agenda_cadastro.html'
+    fields = ['medico', 'dia', 'horario']
+    success_url = reverse_lazy('medicos:agenda_lista')
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+class AgendaDeleteView(LoginRequiredMixin, DeleteView):
+    model = Agenda
+    success_url = reverse_lazy('medicos:agenda_lista')
+    template_name = 'form_delete.html'
+
+    def get_success_url(self):
+        messages.success(self.request, "Consulta excluída com sucesso!")
+        return reverse_lazy('medicos:agenda_lista')
 
 
 class AgendaListView(LoginRequiredMixin, ListView):
@@ -77,4 +98,7 @@ medico_lista = MedicoListView.as_view()
 especialidade_cadastro = EspecialidadeCreateView.as_view()
 especialidade_lista = EspecialidadeListView.as_view()
 agenda_cadastro = AgendaCreateView.as_view()
+agenda_atualizar = AgendaUpdateView.as_view()
 agenda_lista = AgendaListView.as_view()
+agenda_deletar = AgendaDeleteView.as_view()
+
