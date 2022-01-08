@@ -1,3 +1,4 @@
+from django.conf import settings
 from django_cpf_cnpj.fields import CPFField
 from django.core.validators import RegexValidator
 from django.db import models
@@ -23,3 +24,12 @@ class Cliente(models.Model):
     cpf = CPFField(verbose_name="CPF",
                     max_length=50,
                     unique=True,)
+    
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, 
+        verbose_name='Usuário', 
+        on_delete=models.CASCADE
+    )
+    
+    def __str__(self):
+        return f'{self.nome}'
