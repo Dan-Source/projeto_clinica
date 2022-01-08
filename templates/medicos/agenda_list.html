@@ -1,0 +1,45 @@
+{% extends "accounts/index.html" %}
+
+{% block title %}
+    Meus Pedidos
+{% endblock %}
+
+{% block accounts_container %}
+<h2>Meus Pedidos</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Medico
+            </th>
+            <th>
+                Dia
+            </th>
+            <th>
+                Horario
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for consulta in object_list %}
+        <tr>
+            <td>
+                <a href=""># {{ consulta.pk }}</a>
+            </td>
+            <td>
+                {{ consulta.medico }}
+            </td>
+            <td>
+                {{ consulta.dia|date:"d/m/Y" }}
+            </td>
+            <td>
+                {{ consulta.get_horario_display }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

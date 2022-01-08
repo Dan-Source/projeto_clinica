@@ -19,7 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'django_extensions',
     'django_cpf_cnpj',
     'widget_tweaks',
     
@@ -119,4 +119,11 @@ TEMPLATES = [
     },
 ]
 
+LOGIN = 'conta/entrar'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT = 'logout'
 AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.backends.ModelBackend'
+)

@@ -8,6 +8,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<link rel="stylesheet" href="{% static 'assets/bootstrap.min.css' %}"media="screen" />
 	<link rel="stylesheet" href="{% static 'assets/custom.min.css' %}" media="screen" />
+	<link rel="stylesheet" href="{% static 'assets/extra.css' %}" media="screen" />
+
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
@@ -23,11 +25,16 @@
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>
-              <a href="">Consultas</a>
+              <a href="{% url 'medicos:agendar_consulta'%}">Consultas</a>
+            </li>
+            {% if user.is_staff or user.is_superuser %}
+            <li>
+              <a href="{% url 'medicos:medico_cadastro'%}">Medicos</a>
             </li>
             <li>
-              <a href="">Contato</a>
+              <a href="{% url 'medicos:especialidade_cadastro'%}">Especialidade</a>
             </li>
+            {% endif %}
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
@@ -50,19 +57,18 @@
       {% endfor %}
     {% endblock messages %} 
 		{% block container %} {% endblock %}
-		</div>
-		<footer>
-			<div class="row">
-			  <div class="col-lg-12">
-			    <ul class="list-unstyled">
-			      <li class="pull-right"><a href="#top">Voltar ao Topo</a></li>
-			      <li><a href="">Início</a></li>
-			      <li><a href="">Termos e Privacidade</a></li>
-			    </ul>
-			  </div>
-			</div>
-		</footer>
-	</div>
+    <footer>
+      <div class="row">
+        <div class="col-lg-12">
+          <ul class="list-unstyled">
+            <li class="pull-right"><a href="#top">Voltar ao Topo</a></li>
+            <li><a href="">Início</a></li>
+            <li><a href="">Termos e Privacidade</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="{% static 'assets/bootstrap.min.js'%}"></script>
 {% block scripts %}
