@@ -1,5 +1,6 @@
 from datetime import date
 from django.db import models
+from django.conf import settings
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from django.db.models.fields.related import ForeignKey
@@ -31,8 +32,12 @@ class Medico(models.Model):
 
 def validar_dia(value):
     today = date.today()
+    weekday = date.fromisoformat(f'{value}').weekday()
+
     if value < today:
         raise ValidationError('Não é possivel escolher um data atrasada.')
+    if (weekday == 5) or (weekday == 6):
+        raise ValidationError('Escolha um dia útil da semana.')
 
 class Agenda(models.Model):
     medico = ForeignKey(Medico, on_delete=models.CASCADE, related_name='agenda')
@@ -47,6 +52,11 @@ class Agenda(models.Model):
     )
     horario = models.CharField(max_length=10, choices=HORARIOS)
     
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        verbose_name='Usuário', 
+        on_delete=models.CASCADE
+    )
     class Meta:
         unique_together = ('horario', 'dia')
         
