@@ -1,0 +1,33 @@
+{% extends "accounts/index.html" %}
+
+{% block title %}
+    Meus Pedidos
+{% endblock %}
+
+{% block accounts_container %}
+<h2>Meus Pedidos</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Nome
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for especialidade in object_list %}
+        <tr>
+            <td>
+                <a href=""># {{ especialidade.pk }}</a>
+            </td>
+            <td>
+                {{ especialidade.nome }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
