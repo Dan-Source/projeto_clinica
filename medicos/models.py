@@ -28,7 +28,7 @@ class Medico(models.Model):
                                related_name='medicos')
     
     def __str__(self):
-        return f'{self.nome} - {self.crm}'
+        return f'{self.nome}'
 
 def validar_dia(value):
     today = date.today()
@@ -61,4 +61,4 @@ class Agenda(models.Model):
         unique_together = ('horario', 'dia')
         
     def __str__(self):
-        return f'{self.dia} - {self.get_horario_display()} - {self.medico}'
+        return f'{self.dia.strftime("%b %d %Y")} - {self.get_horario_display()} - {self.medico}'

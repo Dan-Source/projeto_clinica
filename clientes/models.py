@@ -1,7 +1,9 @@
 from django.conf import settings
+from django.db.models.fields.related import ForeignKey, OneToOneField
 from django_cpf_cnpj.fields import CPFField
 from django.core.validators import RegexValidator
 from django.db import models
+from medicos.models import Agenda
 
 class Cliente(models.Model):
     nome = models.CharField(verbose_name="Nome", max_length=200)
@@ -33,3 +35,10 @@ class Cliente(models.Model):
     
     def __str__(self):
         return f'{self.nome}'
+    
+class Consulta(models.Model):
+    agenda =  ForeignKey(Agenda, on_delete=models.CASCADE, related_name='consulta')
+    cliente = ForeignKey(Cliente, on_delete=models.CASCADE, related_name='consulta')
+    
+    class Meta:
+        unique_together = ('agenda', 'cliente')

@@ -1,0 +1,56 @@
+{% extends "accounts/index.html" %}
+
+{% block title %}
+    Minhas Consultas
+{% endblock %}
+
+{% block accounts_container %}
+<h2>Minhas Consultas</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Medico
+            </th>
+            <th>
+                Dia
+            </th>
+            <th>
+                Horario
+            </th>
+            <th>
+                Opções
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for consulta in object_list %}
+        <tr>
+            <td>
+                <a href=""># {{ consulta.pk }}</a>
+            </td>
+            <td>
+                {{ consulta.agenda.medico }}
+            </td>
+            <td>
+                {{ consulta.agenda.dia|date:"d/m/Y" }}
+            </td>
+            <td>
+                {{ consulta.agenda.get_horario_display }}
+            </td>
+            <td>
+                <a href="{% url 'medicos:agendar_consulta_atualizar' consulta.id %}" class="text-primary" style="padding-left: 10px; text-decoration: none;">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'medicos:agendar_consulta_deletar' consulta.id %}" class="mr-1 text-danger" style="padding-left: 10px; text-decoration: none;">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
