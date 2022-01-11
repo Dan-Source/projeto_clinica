@@ -14,6 +14,10 @@ class ClienteCreateView(LoginRequiredMixin ,CreateView):
     fields = ['nome', 'email', 'sexo', 'telefone', 'cpf']
     success_url = reverse_lazy('index')
     
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
 class ClienteUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Cliente
@@ -50,6 +54,9 @@ class ConsultaCreateView(LoginRequiredMixin, CreateView):
             if 'UNIQUE constraint failed' in e.args[0]:
                 messages.warning(self.request, 'Você não pode marcar esta consulta')
                 return HttpResponseRedirect(reverse_lazy('clientes:consulta_create'))
+        except Cliente.DoesNotExist:
+            messages.warning(self.request, 'Complete seu cadastro')
+            return HttpResponseRedirect(reverse_lazy('clientes:cliente_cadastro'))
         messages.info(self.request, 'Consulta marcada com sucesso!')
         return HttpResponseRedirect(reverse_lazy('clientes:consulta_list'))
     
