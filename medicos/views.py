@@ -40,7 +40,7 @@ class EspecialidadeCreateView(LoginRequiredMixin, TestMixinIsAdmin, CreateView):
     login_url = 'accounts:login'
     template_name = 'medicos/cadastro.html'
     fields = ['nome',]
-    success_url = reverse_lazy('medicos:agenda_lista')
+    success_url = reverse_lazy('medicos:especialidade_lista')
     
 class EspecialidadeListView(LoginRequiredMixin, TestMixinIsAdmin, ListView):
     
@@ -51,7 +51,7 @@ class EspecialidadeListView(LoginRequiredMixin, TestMixinIsAdmin, ListView):
         return Especialidade.objects.all().order_by('-pk')
 
 
-class AgendaCreateView(LoginRequiredMixin, CreateView):
+class AgendaCreateView(LoginRequiredMixin, TestMixinIsAdmin, CreateView):
 
     model = Agenda
     login_url = 'accounts:login'
@@ -63,7 +63,7 @@ class AgendaCreateView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
     
-class AgendaUpdateView(LoginRequiredMixin, UpdateView):
+class AgendaUpdateView(LoginRequiredMixin, TestMixinIsAdmin, UpdateView):
 
     model = Agenda
     login_url = 'accounts:login'
@@ -75,7 +75,7 @@ class AgendaUpdateView(LoginRequiredMixin, UpdateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
     
-class AgendaDeleteView(LoginRequiredMixin, DeleteView):
+class AgendaDeleteView(LoginRequiredMixin, TestMixinIsAdmin, DeleteView):
     model = Agenda
     success_url = reverse_lazy('medicos:agenda_lista')
     template_name = 'form_delete.html'
@@ -85,13 +85,13 @@ class AgendaDeleteView(LoginRequiredMixin, DeleteView):
         return reverse_lazy('medicos:agenda_lista')
 
 
-class AgendaListView(LoginRequiredMixin, ListView):
+class AgendaListView(LoginRequiredMixin, TestMixinIsAdmin, ListView):
     
     login_url = 'accounts:login'
     template_name = 'medicos/agenda_list.html'
 
     def get_queryset(self):
-        return Agenda.objects.filter(user=self.request.user).order_by('-pk')
+        return Agenda.objects.filter().order_by('-pk')
     
 medico_cadastro = MedicoCreateView.as_view()
 medico_lista = MedicoListView.as_view()

@@ -6,8 +6,6 @@ from django.db import models
 from medicos.models import Agenda
 
 class Cliente(models.Model):
-    nome = models.CharField(verbose_name="Nome", max_length=200)
-    email = models.EmailField(verbose_name="Email")
     SEXO = (
         ("MAS", "Maculino"),
         ("FEM", "Feminino")
@@ -34,7 +32,7 @@ class Cliente(models.Model):
     )
     
     def __str__(self):
-        return f'{self.nome}'
+        return f'{self.user.name}'
     
 class Consulta(models.Model):
     agenda =  OneToOneField(Agenda, on_delete=models.CASCADE, related_name='consulta')

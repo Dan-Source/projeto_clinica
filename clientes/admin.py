@@ -4,7 +4,7 @@ from .models import Cliente, Consulta
     
 class ClientAdmin(admin.ModelAdmin):
     list_display = [
-        'nome', 'cpf', 'telefone',
+        'cpf', 'telefone', 'sexo',
     ]
     
 class ConsultaAdmin(admin.ModelAdmin):

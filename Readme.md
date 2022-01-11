@@ -41,6 +41,12 @@ Password:
 Password (again):
 ```
 
+Para iniciar o servidor depois deste passo você deve:
+```
+(venv)$ ./manage.py runserver
+```
+
+
 Para visualizar se tudo esta executando como esperado vamos acessar o seguinte endereço:
 [```](http://localhost:8000/)
 

@@ -11,7 +11,7 @@ class ClienteCreateView(LoginRequiredMixin ,CreateView):
     
     model = Cliente
     template_name = 'clientes/cadastro.html'
-    fields = ['nome', 'email', 'sexo', 'telefone', 'cpf']
+    fields = ['sexo', 'telefone', 'cpf']
     success_url = reverse_lazy('index')
     
     def form_valid(self, form):
@@ -23,7 +23,7 @@ class ClienteUpdateView(LoginRequiredMixin, UpdateView):
     model = Cliente
     login_url = reverse_lazy('accounts:login')
     template_name = 'accounts/update_user.html'
-    fields = ['nome', 'email', 'sexo', 'telefone', 'cpf']
+    fields = ['sexo', 'telefone', 'cpf']
     success_url = reverse_lazy('accounts:index')
 
     def get_object(self):
@@ -89,8 +89,17 @@ class ConsultaListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user=self.request.user
-        cliente = Cliente.objects.get(user=user)
-        return Consulta.objects.filter(cliente=cliente).order_by('-pk')
+        try:
+            cliente = Cliente.objects.get(user=user)
+        except Cliente.DoesNotExist:
+            messages.warning(self.request, 'Crie uma Consulta')
+            return None
+        try:
+            consultas = Consulta.objects.filter(cliente=cliente).order_by('-pk')
+        except Consulta.DoesNotExist:
+            messages.warning(self.request, 'Crie uma Consulta')
+            return None
+        return consultas
 
 
 cliente_cadastro = ClienteCreateView.as_view()
