@@ -48,7 +48,7 @@ class ConsultaCreateView(LoginRequiredMixin, CreateView):
             form.save()
         except IntegrityError as e:
             if 'UNIQUE constraint failed' in e.args[0]:
-                messages.info(self.request, 'Você não pode marcar esta consulta')
+                messages.warning(self.request, 'Você não pode marcar esta consulta')
                 return HttpResponseRedirect(reverse_lazy('clientes:consulta_create'))
         messages.info(self.request, 'Consulta marcada com sucesso!')
         return HttpResponseRedirect(reverse_lazy('clientes:consulta_list'))
