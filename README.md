@@ -1,7 +1,7 @@
 ## Projeto de Clinica para Programação p/ Internet 2
 
 No que consite este projeto:
-    - Administrar medicos e especialidade
+    - Administrar medicos e especialidade e agendas
     - Criar uma agenda para disponibilizar as consultas
     - Permitir o usuario escolher um consulta em dia e horario de acordo com
     agenda do medico.
