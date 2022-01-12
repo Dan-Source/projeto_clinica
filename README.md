@@ -47,8 +47,8 @@ Para iniciar o servidor depois deste passo você deve:
 
 
 Para visualizar se tudo esta executando como esperado vamos acessar o seguinte endereço:
-[```](http://localhost:8000/)
+[http://localhost:8000/](http://localhost:8000/)
 
 Ou você pode ter acesso a admin do Django:
-[```](http://localhost:8000/admin)
+[http://localhost:8000/admin](http://localhost:8000/admin)
 
