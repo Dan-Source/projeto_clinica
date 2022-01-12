@@ -1,10 +1,16 @@
 ## Projeto de Clinica para Programação p/ Internet 2
 
 No que consite este projeto:
+<<<<<<< HEAD
     - Administrar medicos e especialidade e agendas
     - Criar uma agenda para disponibilizar as consultas
     - Permitir o usuario escolher um consulta em dia e horario de acordo com
     agenda do medico.
+=======
+- Administrar medicos e especialidade e agendas
+- Criar uma agenda para disponibilizar as consultas
+- Permitir o usuario escolher um consulta em dia e horario de acordo com agenda do medico.
+>>>>>>> c974a02 (Altera o usuario)
 
 ## Configurando o ambiente para executar a aplicação web.
 Faça o download deste repositorio:
